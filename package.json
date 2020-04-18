@@ -1,0 +1,19 @@
+{
+  "name": "refactor",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lsxlsxxslxsl/refactor.git"
+  },
+  "author": "liusixin <fordreamxkhl@163.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lsxlsxxslxsl/refactor/issues"
+  },
+  "homepage": "https://github.com/lsxlsxxslxsl/refactor#readme"
+}
