@@ -2,19 +2,31 @@ const invoices = require('./invoices.js')
 const plays = require('./plays.js')
 
 function statement (invoice, plays) {
-  let totalAmount = 0;
-  let volumeCredits = 0;
   let result = `Statement for ${invoice.customer}\n`;
   for (let perf of invoice.performances) {
-    volumeCredits += volumeCreditsFor(perf);
-
     // print line for this order
-    result += ` ${playFor(perf).name}: ${usd(amountFor(perf) / 100)} (${perf.audience} seats)\n`;
-    totalAmount += amountFor(perf);
+    result += ` ${playFor(perf).name}: ${usd(amountFor(perf))} (${perf.audience} seats)\n`;
   }
-  result += `Amount owed is ${usd(totalAmount / 100)}\n`;
-  result += `You earned ${volumeCredits} credits\n`;
+
+  result += `Amount owed is ${usd(totalAmount())}\n`;
+  result += `You earned ${totalVolumeCredits()} credits\n`;
   console.log(result)
+  return result;
+}
+
+function totalAmount () {
+  let result = 0;
+  for (let perf of invoices[0].performances) {
+    result += amountFor(perf);
+  }
+  return result;
+}
+
+function totalVolumeCredits () {
+  let result = 0;
+  for (let perf of invoices[0].performances) {
+    result += volumeCreditsFor(perf);
+  }
   return result;
 }
 
@@ -23,7 +35,7 @@ function usd (aNumber) {
     {
       style: "currency", currency: "USD",
       minimumFractionDigits: 2
-    }).format(aNumber);
+    }).format(aNumber / 100);
 }
 
 function volumeCreditsFor (perf) {
